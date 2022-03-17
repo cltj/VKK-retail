@@ -1,8 +1,11 @@
 from azure.data.tables import TableClient, UpdateMode
 from azure.core.exceptions import ResourceExistsError, HttpResponseError, ResourceNotFoundError
 
+from config import My_Config
 
-def entity_crud(connection_string, table_name, operation, entity):
+
+def entity_crud(table_name, operation, entity):
+    connection_string = My_Config.az_table_conn_str()
     with TableClient.from_connection_string(connection_string, table_name) as table_client:
         if operation == 'create':
             try:
@@ -49,3 +52,11 @@ def query_entities_values(connection_string, table_name, filter, select): # , pa
             return lst
         except HttpResponseError as e:
             print(e.message)
+
+
+def new_table(table_name):
+    connection_string = My_Config.az_table_conn_str()
+    from azure.data.tables import TableServiceClient
+    table_service_client = TableServiceClient.from_connection_string(conn_str=connection_string)
+    table_client = table_service_client.create_table(table_name=table_name)
+    return table_client
