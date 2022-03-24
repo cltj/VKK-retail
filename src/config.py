@@ -16,3 +16,6 @@ class My_Config():
     def mongo_db_conn_str():
         mongo_db_conn_str = os.getenv("MONGO_DB_CONN_STR")
         return mongo_db_conn_str
+    def document_path():
+        document_path = os.getenv("DOCUMENT_PATH")
+        return document_path
