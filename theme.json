@@ -1,0 +1,22 @@
+{
+    "name": "Custom Theme Test 1",
+    "dataColors": [
+        "#0B3939",
+        "#0A4C4C",
+        "#1F6565",
+        "#3F7F7F",
+        "#3B8F8F",
+        "#5F3513",
+        "#7F4210",
+        "#A86934",
+        "#D49969",
+        "#EEA263"
+    ],
+    "good": "#1AAB40",
+    "neutral": "#D9B300",
+    "bad": "#D64554",
+    "maximum": "#118DFF",
+    "center": "#D9B300",
+    "minimum": "#DEEFFF",
+    "null": "#FF7F48"
+}

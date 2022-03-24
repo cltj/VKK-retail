@@ -85,20 +85,25 @@ def stage_3():
             facts.append(col)
         elif len(distinct) < 50:
             print(distinct)
-            new_table_name = "DIM_"+str(col)
+            col_name = str(col.replace(" ", ""))
+            new_table_name = "DIM0"+ col_name
             response = new_table(table_name=new_table_name)
-            print(response)
+            print(response.table_name + " was created...")
             entities = pd.DataFrame.to_dict(distinct)
-            for entity in entities:
+            temp = entities[col].values()
+            new_entity = {}
+            for item in temp:
                 new_id = random_char(6)
-                entity["PartitionKey"] = col
-                entity["RowKey"] = new_id
-                entity_crud(table_name=new_table_name, operation="create", entity=distinct)
+                new_entity["PartitionKey"] = col_name
+                new_entity["RowKey"] = new_id
+                new_entity[col_name+"s"] = item
+                entity_crud(table_name=new_table_name, operation="create", entity=new_entity)
             dimentions.append(col)
         else:
             unclear_dimentions.append(col)
 
-    return True
+    ret = {"Done":True, "dim":dimentions, "unclear":unclear_dimentions, "facts": facts}
+    return ret
 
 def main():
     #result = stage_1()
@@ -110,8 +115,8 @@ def main():
     #print("---|Filtered out " + str(dropped_columns) + " columns \n"
     #"---| Sustained Columns =  " + str(sustained_columns))
 
-    dim = stage_3()
-    print(dim)
+    ret = stage_3()
+    print(ret['Done'])
 
 if __name__ == "__main__":
     main()
